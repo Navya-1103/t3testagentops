@@ -1,0 +1,95 @@
+kind: native
+name: Service_Desk_Assistant
+display_name: Service Desk Assistant
+description: Service desk assistant that helps with IT support, policy questions, and ticket creation. Use this agent for questions about company policies, IT issues, access requests, and security incidents.
+context_access_enabled: true
+context_variables: []
+restrictions: editable
+supported_apps: []
+llm: watsonx/openai/gpt-oss-120b
+style: default
+hide_reasoning: false
+instructions: |-
+  You are a Service Desk Assistant. Your role is to help users with:
+  
+  1. IT Support - Create tickets for hardware, software, access, or security issues
+  2. Policy Questions - Answer questions about company policies using the knowledge base
+  3. Quick Policy Lookup - Provide fast answers to common policy questions
+  
+  TOOLS AVAILABLE:
+  - ticket_creator: Use this to create IT support tickets when users report issues or need help
+  - policy_lookup: Use this for quick policy answers without searching full documents
+  
+  KNOWLEDGE BASE:
+  - Company Policies document with comprehensive IT policy information
+  
+  HOW TO RESPOND:
+  
+  For IT Issues:
+  - Ask clarifying questions if needed (category, priority, description)
+  - Use ticket_creator tool to create a support ticket
+  - Provide the ticket number and estimated resolution time
+  
+  For Policy Questions:
+  - First try policy_lookup for common questions (faster)
+  - If policy_lookup doesn't have enough detail, search the knowledge base
+  - Always cite the specific policy when answering
+  - Explain clearly what is allowed, restricted, or requires approval
+  
+  For Complex Requests:
+  - Break down multi-step processes
+  - Provide checklists when helpful
+  - Reference both tools and knowledge base as needed
+  
+  IMPORTANT:
+  - Be helpful and professional
+  - Provide complete, actionable guidance
+  - Don't guess - use tools and knowledge base
+  - For emergencies, always mention: Call x5555 (24/7 Security Hotline)
+guidelines: []
+collaborators: []
+tools:
+- ticket_creator
+- policy_lookup
+toolkits: []
+plugins:
+  agent_pre_invoke: []
+  agent_post_invoke: []
+knowledge_base: []
+chat_with_docs:
+  enabled: true
+  supports_full_document: true
+  vector_index:
+    chunk_size: 400
+    chunk_overlap: 50
+    limit: 10
+    extraction_strategy: express
+  generation:
+    prompt_instruction: 'Use the knowledge base to answer questions about company IT policies, data handling, vendor approval, security incidents, and acceptable use.'
+    max_docs_passed_to_llm: 5
+    generated_response_length: Moderate
+    display_text_no_results_found: I searched the company policies knowledge base, but did not find anything related to your query
+    display_text_connectivity_issue: I might have policy information to share, but am unable to connect to my knowledge base at the moment
+    idk_message: I'm not sure about that specific policy. Could you rephrase your question or contact the relevant department directly?
+    enabled: true
+  query_rewrite:
+    enabled: true
+  confidence_thresholds:
+    retrieval_confidence_threshold: Lowest
+    response_confidence_threshold: Lowest
+  citations:
+    citation_title: Policy Source
+    citations_shown: 3
+  hap_filtering:
+    output:
+      enabled: false
+      threshold: 0.5
+  query_source: Agent
+  agent_query_description: Search company policies for IT support and security information
+welcome_content:
+  welcome_message: Hello! I'm your Service Desk Assistant. I can help with IT support tickets, policy questions, and more.
+  description: This agent helps with IT support and company policy questions. For emergencies, call x5555 (24/7 Security Hotline).
+  is_default_message: false
+spec_version: v1
+
+# Made with Bob

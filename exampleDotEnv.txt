@@ -1,0 +1,26 @@
+# Watson Orchestrate Environment Configuration
+# Copy this file to .env and fill in your actual values
+
+# Watson Orchestrate API Key
+# Get this from your Watson Orchestrate instance
+WO_API_KEY=your-api-key-here
+
+# Watson Orchestrate Instance URL
+# Example: https://your-instance.watsonorchestrate.ibm.com
+WO_INSTANCE=https://your-instance-url-here
+
+# Model Provider Configuration
+# Use 'groq' for the gateway model provider
+USE_GATEWAY_MODEL_PROVIDER=groq
+
+# Default Model
+# The LLM model to use for evaluation
+DEFAULT_MODEL=groq/openai/gpt-oss-120b
+
+# Optional: Langfuse Configuration (for advanced observability)
+# Uncomment and fill in if using Langfuse
+# LANGFUSE_PUBLIC_KEY=your-langfuse-public-key
+# LANGFUSE_SECRET_KEY=your-langfuse-secret-key
+# LANGFUSE_HOST=https://cloud.langfuse.com
+
+# Made with Bob
