@@ -87,7 +87,7 @@ chat_with_docs:
   query_source: Agent
   agent_query_description: Search company policies for IT support and security information
 welcome_content:
-  welcome_message: Hello! I'm your Service Desk Assistant. I can help with IT support tickets, policy questions, and more.
+  welcome_message: Hello! I'm your Service Desk Assistant. I can help with IT support and policy questions.
   description: This agent helps with IT support and company policy questions. For emergencies, call x5555 (24/7 Security Hotline).
   is_default_message: false
 spec_version: v1
