@@ -2,7 +2,7 @@
 layout: page
 title: Lab 2
 # permalink: /lab2/
-nav_order: 3
+nav_order: 2
 ---
 
 
