@@ -160,6 +160,8 @@ orchestrate evaluations generate \
 
 ### Verify Generated Files
 
+**Important:** Replace `[Your_Agent_Name]` with your actual agent name.
+
 ```bash
 ls -la ./evaluation/output/
 ls -1 ./evaluation/output/[Your_Agent_Name]_test_cases/ | wc -l
@@ -168,6 +170,8 @@ ls -1 ./evaluation/output/[Your_Agent_Name]_test_cases/ | wc -l
 Expected: 5 test case files
 
 ### Review Test Case Structure
+
+**Important:** Replace `[Your_Agent_Name]` with your actual agent name.
 
 ```bash
 cat ./evaluation/output/[Your_Agent_Name]_test_cases/synthetic_test_case_1.json | python3 -m json.tool
@@ -205,6 +209,8 @@ cat .env
 
 
 ### Run Evaluation
+
+**Important:** Replace `[Your_Agent_Name]` with your actual agent name.
 
 ```bash
 orchestrate evaluations evaluate \
@@ -290,6 +296,8 @@ cat ./evaluation/results/2026-04-02_14-30-15/messages/synthetic_test_case_1.mess
 - Improve policy wording
 
 ### Re-run After Changes
+
+**Important:** Replace `[Your_Agent_Name]` with your actual agent name.
 
 ```bash
 orchestrate evaluations evaluate \

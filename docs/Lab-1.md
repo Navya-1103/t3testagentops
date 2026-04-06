@@ -53,7 +53,7 @@ chmod +x import_and_deploy.sh
   ![image](./imgs/lab1/step_1d.png)
   ![image](./imgs/lab1/step_1e.png)
 
-5. Upload [Company policies](./knowledge_base/company_policies.txt) under the knowledge_base folder
+5. Upload [Company policies](./knowledge_base/company_policies.txt) under the **knowledge_base** folder
 
 
   ![image](./imgs/lab1/step_1f.png)
