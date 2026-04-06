@@ -1,3 +1,11 @@
+---
+layout: page
+title: Lab 2
+# permalink: /lab2/
+nav_order: 3
+---
+
+
 # Lab 2: Evaluation Framework - Automated Testing
 
 ## Lab Overview
