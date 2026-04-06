@@ -54,7 +54,7 @@ chmod +x import_and_deploy.sh
   ![image](./imgs/lab1/step_1d.png)
   ![image](./imgs/lab1/step_1e.png)
 
-5. Upload [Company policies](./knowledge_base/company_policies.txt)
+5. Upload [Company policies](./knowledge_base/company_policies.txt) under the knowledge_base folder
 
 
   ![image](./imgs/lab1/step_1f.png)
@@ -207,10 +207,6 @@ My laptop was stolen from my car last night. It has customer data on it. What do
 - Success rate
 - Response time trends
 
-**Key Observations:**
-- 3 distinct spikes (your conversations)
-- 10-minute gaps between spikes
-- Cost variation between conversations
 
 ### 4.3 Message Metrics
 
@@ -222,10 +218,6 @@ My laptop was stolen from my car last night. It has customer data on it. What do
 
   ![image](./imgs/lab1/step_4b.png)
 
-**Key Observations:**
-- Which messages generated most output tokens
-- Input/output ratio patterns
-- Cost drivers
 
 ### 4.4 Tool Metrics
 
@@ -261,7 +253,6 @@ My laptop was stolen from my car last night. It has customer data on it. What do
 1. Click **Tools** tab
   ![image](./imgs/lab1/step_5c.png)
 
-2. Review tool calls
 ---
 
 ## Part 6: Key Insights (5 minutes)
