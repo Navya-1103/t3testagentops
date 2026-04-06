@@ -53,16 +53,16 @@ orchestrate agents list | grep "Service_Desk"
 
 Create `evaluation/stories.csv`:
 
+**Important:** Replace `[Your_Agent_Name]` with your actual agent name.
+
 ```csv
 story,agent
-Can I store customer data in a shared Google Sheet?,Service_Desk_Assistant_abc123
-Is two-factor authentication required for VPN access?,Service_Desk_Assistant_abc123
-I received a phishing email can you help me report it?,Service_Desk_Assistant_abc123
-I need access to the customer database can you create a ticket?,Service_Desk_Assistant_abc123
-My laptop was stolen with customer data on it what do I do?,Service_Desk_Assistant_abc123
+Can I store customer data in a shared Google Sheet?,[Your_Agent_Name]
+Is two-factor authentication required for VPN access?,[Your_Agent_Name]
+I received a phishing email can you help me report it?,[Your_Agent_Name]
+I need access to the customer database can you create a ticket?,[Your_Agent_Name]
+My laptop was stolen with customer data on it what do I do?,[Your_Agent_Name]
 ```
-
-**Important:** Replace `Service_Desk_Assistant_abc123` with your actual agent name.
 
 
 ---
@@ -144,7 +144,6 @@ python3 tools.py
 ### Run Generate Command
 
 ```bash
-cd ServiceDeskAgent-Package
 
 orchestrate evaluations generate \
   --stories-path ./evaluation/stories.csv \
@@ -163,7 +162,7 @@ orchestrate evaluations generate \
 
 ```bash
 ls -la ./evaluation/output/
-ls -1 ./evaluation/output/Service_Desk_Assistant_abc123_test_cases/ | wc -l
+ls -1 ./evaluation/output/[Your_Agent_Name]_test_cases/ | wc -l
 ```
 
 Expected: 5 test case files
@@ -171,7 +170,7 @@ Expected: 5 test case files
 ### Review Test Case Structure
 
 ```bash
-cat ./evaluation/output/Service_Desk_Assistant_abc123_test_cases/synthetic_test_case_1.json | python3 -m json.tool
+cat ./evaluation/output/[Your_Agent_Name]_test_cases/synthetic_test_case_1.json | python3 -m json.tool
 ```
 
 
@@ -209,7 +208,7 @@ cat .env
 
 ```bash
 orchestrate evaluations evaluate \
-  --test-paths ./evaluation/output/Service_Desk_Assistant_abc123_test_cases/ \
+  --test-paths ./evaluation/output/[Your_Agent_Name]_test_cases/ \
   --output-dir ./evaluation/results/ \
   --env-file .env
 ```
@@ -294,7 +293,7 @@ cat ./evaluation/results/2026-04-02_14-30-15/messages/synthetic_test_case_1.mess
 
 ```bash
 orchestrate evaluations evaluate \
-  --test-paths ./evaluation/output/Service_Desk_Assistant_abc123_test_cases/ \
+  --test-paths ./evaluation/output/[Your_Agent_Name]_test_cases/ \
   --output-dir ./evaluation/results/ \
   --env-file .env
 ```

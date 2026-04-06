@@ -26,7 +26,6 @@ orchestrate env activate
 ### Step 1.2: Run Import Script
 
 ```bash
-cd ServiceDeskAgent-Package
 chmod +x import_and_deploy.sh
 ./import_and_deploy.sh
 ```
