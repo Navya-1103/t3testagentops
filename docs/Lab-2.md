@@ -1,10 +1,3 @@
----
-layout: default
-title: Lab 2 - Evaluation Framework
----
-
-[← Back to Home](index.md) | [← Lab 1](lab1.md)
-
 # Lab 2: Evaluation Framework - Automated Testing
 
 ## Lab Overview
@@ -345,3 +338,4 @@ orchestrate agents list  # Verify agent name
 ---
 
 [← Back to Home](index.md)
+
