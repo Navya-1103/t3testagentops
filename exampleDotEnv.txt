@@ -3,11 +3,11 @@
 
 # Watson Orchestrate API Key
 # Get this from your Watson Orchestrate instance
-WO_API_KEY=_oMpgL0X0q70sOwDQFt70EIk1CgYX8ZY_5kZIpVy39ui
+WO_API_KEY=
 
 # Watson Orchestrate Instance URL
 # Example: https://your-instance.watsonorchestrate.ibm.com
-WO_INSTANCE=https://api.us-south.watson-orchestrate.cloud.ibm.com/instances/79d2d3a3-8cb5-4400-87d2-315db7c3a79f
+WO_INSTANCE=
 
 # Model Provider Configuration
 # Use 'groq' for the gateway model provider
