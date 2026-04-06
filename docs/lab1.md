@@ -3,17 +3,21 @@ layout: default
 title: Lab 1 - UI Dashboard
 ---
 
-[← Back to Home](index.md)
+<div class="nav-links">
+  <a href="index.html">🏠 Home</a>
+  <a href="SETUP_INSTRUCTIONS.html">⚙️ Setup</a>
+  <a href="lab1.html">📊 Lab 1</a>
+  <a href="lab2.html">🧪 Lab 2</a>
+</div>
 
-# Lab 1: AgentOps UI Dashboard - Metrics Analysis
+# Lab 1: AgentOps UI Dashboard
 
-## Lab Overview
-
-**Duration:** 60 minutes
-**Prerequisites:** Watson Orchestrate account, CLI installed
-
-**Target Audience:** Business users, product managers, and anyone who wants high-level insights into agent performance without diving into code. This lab focuses on the UI dashboard for quick metrics analysis.
-
+<div class="info-box">
+  <strong>⏱️ Duration:</strong> 60 minutes<br>
+  <strong>📚 Level:</strong> Beginner<br>
+  <strong>🎯 Focus:</strong> Visual monitoring and analysis<br>
+  <strong>👥 Target Audience:</strong> Business users, product managers, and anyone who wants high-level insights into agent performance without diving into code.
+</div>
 
 ---
 

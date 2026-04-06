@@ -1,11 +1,18 @@
-title: Service Desk Assistant - Lab Guide
+title: Service Desk Assistant Labs
 description: Hands-on labs for Watson Orchestrate agent monitoring and evaluation
 theme: jekyll-theme-cayman
 markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: 'highlight'
 plugins:
   - jekyll-relative-links
+  - jekyll-seo-tag
 relative_links:
   enabled: true
   collections: true
 
-# Made with Bob
+# Navigation
+show_downloads: false

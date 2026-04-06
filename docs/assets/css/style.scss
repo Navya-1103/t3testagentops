@@ -1,0 +1,204 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+/* Custom styling to match reference site */
+
+.page-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 3rem 1rem;
+}
+
+.main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+/* Navigation styling */
+.nav-links {
+  background: #f6f8fa;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  border-left: 4px solid #667eea;
+}
+
+.nav-links a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 600;
+  margin-right: 1.5rem;
+}
+
+.nav-links a:hover {
+  color: #764ba2;
+  text-decoration: underline;
+}
+
+/* Section styling */
+h2 {
+  color: #2c3e50;
+  border-bottom: 3px solid #667eea;
+  padding-bottom: 0.5rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+h3 {
+  color: #34495e;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* Code blocks */
+pre {
+  background: #2d2d2d;
+  border-radius: 8px;
+  padding: 1.5rem;
+  overflow-x: auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+code {
+  background: #f6f8fa;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-size: 0.9em;
+  color: #e83e8c;
+}
+
+pre code {
+  background: transparent;
+  color: #f8f8f2;
+  padding: 0;
+}
+
+/* Info boxes */
+.info-box {
+  background: #e7f3ff;
+  border-left: 4px solid #2196F3;
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 4px;
+}
+
+.warning-box {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 4px;
+}
+
+.success-box {
+  background: #d4edda;
+  border-left: 4px solid #28a745;
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 4px;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+th {
+  background: #667eea;
+  color: white;
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+}
+
+td {
+  padding: 1rem;
+  border-bottom: 1px solid #e1e4e8;
+}
+
+tr:hover {
+  background: #f6f8fa;
+}
+
+/* Lists */
+ul, ol {
+  margin: 1rem 0;
+  padding-left: 2rem;
+}
+
+li {
+  margin: 0.5rem 0;
+}
+
+/* Links */
+a {
+  color: #667eea;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: #764ba2;
+  text-decoration: underline;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: #667eea;
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s;
+  margin: 0.5rem 0.5rem 0.5rem 0;
+}
+
+.btn:hover {
+  background: #764ba2;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  color: white;
+  text-decoration: none;
+}
+
+/* Cards */
+.card {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-left: 4px solid #667eea;
+}
+
+.card h3 {
+  margin-top: 0;
+  color: #667eea;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+  
+  .page-header {
+    padding: 2rem 1rem;
+  }
+  
+  table {
+    font-size: 0.9rem;
+  }
+}
+
+// Made with Bob

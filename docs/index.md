@@ -3,45 +3,74 @@ layout: default
 title: Home
 ---
 
-# Service Desk Assistant - Lab Guide
+<div class="nav-links">
+  <a href="index.html">🏠 Home</a>
+  <a href="SETUP_INSTRUCTIONS.html">⚙️ Setup</a>
+  <a href="lab1.html">📊 Lab 1</a>
+  <a href="lab2.html">🧪 Lab 2</a>
+</div>
 
-Welcome to the hands-on lab package for learning agent monitoring and evaluation using Watson Orchestrate.
+# Service Desk Assistant Labs
+
+Welcome to the hands-on lab package for learning **agent monitoring and evaluation** using Watson Orchestrate.
+
+<div class="card">
+  <h3>🎯 What You'll Learn</h3>
+  <ul>
+    <li>Monitor agent performance in real-time</li>
+    <li>Analyze conversation metrics and costs</li>
+    <li>Automate testing with synthetic test cases</li>
+    <li>Optimize agent behavior based on data</li>
+  </ul>
+</div>
 
 ## 📚 Available Labs
-📖 **[Setup Instructions](SETUP_INSTRUCTIONS.md)** - How to publish this site to GitHub Pages
 
+<div class="card">
+  <h3><a href="lab1.html">Lab 1: AgentOps UI Dashboard</a></h3>
+  <p><strong>Duration:</strong> 60 minutes | <strong>Level:</strong> Beginner</p>
+  <p><strong>Focus:</strong> Visual monitoring and analysis</p>
+  
+  <p><strong>What you'll learn:</strong></p>
+  <ul>
+    <li>Navigate the AgentOps dashboard</li>
+    <li>Analyze conversation, message, and tool metrics</li>
+    <li>Perform deep-dive investigations</li>
+    <li>Identify cost drivers and performance issues</li>
+    <li>Optimize agent behavior</li>
+  </ul>
+  
+  <p><strong>Best for:</strong> Business users, product managers, and anyone who wants high-level insights without diving into code.</p>
+  
+  <a href="lab1.html" class="btn">Start Lab 1 →</a>
+</div>
 
-### [Lab 1: AgentOps UI Dashboard](lab1.md)
-**Duration:** 60 minutes  
-**Focus:** Visual monitoring and analysis
-
-Learn to:
-- Navigate the AgentOps dashboard
-- Analyze conversation, message, and tool metrics
-- Perform deep-dive investigations
-- Identify cost drivers and performance issues
-- Optimize agent behavior
-
-**Best for:** Business users, product managers, and anyone who wants high-level insights without diving into code.
-
----
-
-### [Lab 2: Evaluation Framework](lab2.md)
-**Duration:** 60 minutes  
-**Focus:** Automated testing and programmatic evaluation
-
-Learn to:
-- Create user stories for testing
-- Define evaluation tools
-- Generate synthetic test cases
-- Run automated evaluations
-- Analyze results programmatically
-
-**Best for:** Developers, data scientists, and QA engineers who need programmatic access and automation.
-
----
+<div class="card">
+  <h3><a href="lab2.html">Lab 2: Evaluation Framework</a></h3>
+  <p><strong>Duration:</strong> 60 minutes | <strong>Level:</strong> Intermediate</p>
+  <p><strong>Focus:</strong> Automated testing and programmatic evaluation</p>
+  
+  <p><strong>What you'll learn:</strong></p>
+  <ul>
+    <li>Create user stories for testing</li>
+    <li>Define evaluation tools</li>
+    <li>Generate synthetic test cases</li>
+    <li>Run automated evaluations</li>
+    <li>Analyze results programmatically</li>
+  </ul>
+  
+  <p><strong>Best for:</strong> Developers, data scientists, and QA engineers who need programmatic access and automation.</p>
+  
+  <a href="lab2.html" class="btn">Start Lab 2 →</a>
+</div>
 
 ## 🚀 Quick Start
+
+<div class="info-box">
+  <strong>⏱️ Total Time:</strong> 2 hours (60 min per lab)<br>
+  <strong>📚 Difficulty:</strong> Beginner to Intermediate<br>
+  <strong>🎓 Outcome:</strong> Complete understanding of agent monitoring and evaluation
+</div>
 
 ### Prerequisites
 
@@ -53,13 +82,13 @@ pip install ibm-watsonx-orchestrate
 orchestrate --version
 ```
 
-### Installation (2 minutes)
+### Installation Steps
 
 ```bash
 # 1. Activate environment with your credentials
 orchestrate env activate
 
-# 2. Clone or download the package
+# 2. Navigate to package directory
 cd ServiceDeskAgent-Package
 
 # 3. Run import and deployment script
@@ -67,58 +96,14 @@ chmod +x import_and_deploy.sh
 ./import_and_deploy.sh
 ```
 
-### Manual Steps Required
-
-After running the import script:
-
-1. **Upload Knowledge Base** (in UI):
-   - Go to Watson Orchestrate UI
-   - Navigate to Agents → Service_Desk_Assistant
-   - Click 'Knowledge Base' section
-   - Upload `knowledge_base/company_policies.txt`
-   - Wait 2-3 minutes for processing
-
-2. **Enable Monitoring** (for evaluation):
-   - Click hamburger menu (☰)
-   - Select 'Analyze'
-   - Find 'Service_Desk_Assistant'
-   - Toggle 'Monitor' to ON
-
----
-
-## 📦 Package Contents
-
-The lab package includes:
-
-- **Service Desk Assistant Agent** - Pre-configured agent with IT support capabilities
-- **Python Tools** - Ticket creator and policy lookup tools
-- **Knowledge Base** - Company IT policies document
-- **Lab Guides** - Step-by-step instructions for both labs
-- **Import Script** - Automated setup for quick deployment
-
----
-
-## 🎯 Learning Path
-
-### Recommended Approach
-
-1. **Start with Lab 1** (60 min)
-   - Import agent and tools
-   - Add knowledge base
-   - Generate test conversations
-   - Explore AgentOps dashboard
-   - Learn Evaluation and Analysis sections
-
-2. **Then Complete Lab 2** (60 min)
-   - Create user stories
-   - Define evaluation tools
-   - Generate test cases
-   - Run automated evaluation
-   - Analyze results programmatically
-
-3. **Use Both Together**
-   - Lab 1 for interactive debugging
-   - Lab 2 for automated regression testing
+<div class="warning-box">
+  <strong>⚠️ Manual Steps Required:</strong>
+  <ol>
+    <li>Upload knowledge base in Watson Orchestrate UI</li>
+    <li>Enable monitoring for the agent</li>
+  </ol>
+  See <a href="SETUP_INSTRUCTIONS.html">Setup Instructions</a> for details.
+</div>
 
 ---
 
@@ -126,7 +111,7 @@ The lab package includes:
 
 | Aspect | Lab 1 | Lab 2 |
 |--------|-------|-------|
-| **Duration** | 60 min | 60 min |
+| **Duration** | 60 minutes | 60 minutes |
 | **Method** | Manual testing | Automated testing |
 | **Interface** | Visual dashboard | Command line |
 | **Focus** | Interactive exploration | Programmatic evaluation |
@@ -137,39 +122,50 @@ The lab package includes:
 
 ## 🛠️ Agent Capabilities
 
-The Service Desk Assistant can help with:
-
-1. **IT Ticket Creation** - Create support tickets for hardware, software, access, or security issues
-2. **Policy Lookup** - Quick answers to common policy questions
-3. **Knowledge Base Search** - Comprehensive company IT policies
-
-**Available Tools:**
-- `create_ticket` - Creates IT support tickets with priority and category
-- `lookup_policy` - Provides quick policy guidance
-
-**Knowledge Base Topics:**
-- Data Handling Policy
-- Third Party Access Policy
-- Security Incident Reporting Policy
-- Acceptable Use Policy
+<div class="card">
+  <h3>Service Desk Assistant Features</h3>
+  
+  <p><strong>1. IT Ticket Creation</strong></p>
+  <p>Create support tickets for hardware, software, access, or security issues</p>
+  
+  <p><strong>2. Policy Lookup</strong></p>
+  <p>Quick answers to common policy questions</p>
+  
+  <p><strong>3. Knowledge Base Search</strong></p>
+  <p>Comprehensive company IT policies covering:</p>
+  <ul>
+    <li>Data Handling Policy</li>
+    <li>Third Party Access Policy</li>
+    <li>Security Incident Reporting Policy</li>
+    <li>Acceptable Use Policy</li>
+  </ul>
+</div>
 
 ---
 
 ## 📈 Success Metrics
 
-### Lab 1 Success Criteria
-- ✅ Agent responds to all 9 messages
-- ✅ Creates tickets when appropriate
-- ✅ References correct policies
-- ✅ Provides complete answers
-- ✅ Reasonable cost per conversation
+<div class="success-box">
+  <strong>Lab 1 Success Criteria:</strong>
+  <ul>
+    <li>✅ Agent responds to all 9 messages</li>
+    <li>✅ Creates tickets when appropriate</li>
+    <li>✅ References correct policies</li>
+    <li>✅ Provides complete answers</li>
+    <li>✅ Reasonable cost per conversation</li>
+  </ul>
+</div>
 
-### Lab 2 Success Criteria
-- ✅ 80%+ journey success rate
-- ✅ High text match scores
-- ✅ Correct tool calls
-- ✅ Consistent performance
-- ✅ Automated evaluation runs successfully
+<div class="success-box">
+  <strong>Lab 2 Success Criteria:</strong>
+  <ul>
+    <li>✅ 80%+ journey success rate</li>
+    <li>✅ High text match scores</li>
+    <li>✅ Correct tool calls</li>
+    <li>✅ Consistent performance</li>
+    <li>✅ Automated evaluation runs successfully</li>
+  </ul>
+</div>
 
 ---
 
@@ -182,24 +178,24 @@ The Service Desk Assistant can help with:
 
 ---
 
-## 🚦 Getting Started
+## 🚦 Ready to Start?
 
-Ready to begin? Start with **[Lab 1: UI Dashboard](lab1.md)**!
-
-**Total Lab Time:** 2 hours  
-**Difficulty:** Beginner to Intermediate  
-**Outcome:** Complete understanding of agent monitoring and evaluation
+<a href="SETUP_INSTRUCTIONS.html" class="btn">📖 Setup Instructions</a>
+<a href="lab1.html" class="btn">🚀 Start Lab 1</a>
+<a href="lab2.html" class="btn">🧪 Start Lab 2</a>
 
 ---
 
-## 💡 Support
-
-For questions or issues:
-- Review the lab guides thoroughly
-- Check the troubleshooting sections
-- Verify prerequisites and credentials
-- Ensure Watson Orchestrate CLI is properly installed
+<div class="info-box">
+  <strong>💡 Need Help?</strong>
+  <ul>
+    <li>Review the lab guides thoroughly</li>
+    <li>Check the troubleshooting sections</li>
+    <li>Verify prerequisites and credentials</li>
+    <li>Ensure Watson Orchestrate CLI is properly installed</li>
+  </ul>
+</div>
 
 ---
 
-*Last Updated: April 2026*
+*Last Updated: April 2026 | Built with ❤️ for Watson Orchestrate*
