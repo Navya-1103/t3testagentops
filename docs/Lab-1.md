@@ -15,11 +15,13 @@ pip install ibm-watsonx-orchestrate
 # Verify installation
 orchestrate --version
 
+# Create environment
+orchestrate env add -n <environment-name> -u <service-instance-url>
+
 # Activate environment with your credentials
-orchestrate env activate
+orchestrate env activate <environment name>
 
 # When prompted, enter:
-# - WxO Service Instance URL: [Your instance URL]
 # - API Key: [Your API key]
 ```
 
@@ -39,7 +41,7 @@ chmod +x import_and_deploy.sh
 
 1. Go to Watson Orchestrate UI
 
-2. Navigate to **Agents** → **Service_Desk_Assistant**
+2. Navigate to **Build** → **Service Desk Assistant**
 
   ![image](./imgs/lab1/step_1a.png)
   ![image](./imgs/lab1/step_1b.png)
@@ -58,7 +60,11 @@ chmod +x import_and_deploy.sh
 
   ![image](./imgs/lab1/step_1f.png)
 
-6. Add description
+6. Add name and description
+
+```
+Company policies 
+```
 
 ```
 Company IT Policies Knowledge Base
@@ -84,17 +90,28 @@ For quick common questions, try the lookup_policy tool first.
 1. Click hamburger menu (☰)
 2. Select **Analyze**
 
+3. Find **Service Desk Assistant**
+
   ![image](./imgs/lab1/step_2a.png)
 
-3. Find **Service_Desk_Assistant**
 4. Toggle **Monitor** to **ON**
 
   ![image](./imgs/lab1/step_2b.png)
+
+  ![image](./imgs/lab1/step_2c.png)
 
 ---
 
 ## Part 2: Generate Test Conversations (20 minutes)
 
+1. Click hamburger menu (☰)
+2. Select **Chat**
+
+  ![image](./imgs/lab1/step_2d.png)
+
+3. Click on **Service Desk Assistant**
+
+  ![image](./imgs/lab1/step_2e.png)
 
 ### Conversation 1: Simple Policy Questions
 
@@ -147,8 +164,13 @@ If I accidentally expose customer PII, what exactly should I do? Give me the ste
 ### Conversation 3: Tool Usage and Tickets
 
 **Message 1:**
+
 ```
 I received a suspicious email asking for my password. I think it's phishing. Can you help me report this?
+```
+
+```
+abc123@gmail.com
 ```
 
   ![image](./imgs/lab1/sda_tool_step1.png)
@@ -156,6 +178,10 @@ I received a suspicious email asking for my password. I think it's phishing. Can
 **Message 2:**
 ```
 I need access to the customer analytics database for Q1 reporting. Can you create a ticket for this access request?
+```
+
+```
+abc123@gmail.com
 ```
 
   ![image](./imgs/lab1/sda_tool_step2.png)

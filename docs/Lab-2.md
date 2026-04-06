@@ -34,7 +34,6 @@ orchestrate env activate
 ### Step 1.2: Create Directory Structure
 
 ```bash
-cd ServiceDeskAgent-Package
 mkdir -p evaluation/output evaluation/results
 ```
 
@@ -44,6 +43,7 @@ mkdir -p evaluation/output evaluation/results
 orchestrate agents list | grep "Service_Desk"
 ```
 
+  ![image](./imgs/lab1/lab2_1.png)
 
 ---
 
@@ -55,7 +55,7 @@ Create `evaluation/stories.csv`:
 
 **Important:** Replace `[Your_Agent_Name]` with your actual agent name.
 
-```csv
+```
 story,agent
 Can I store customer data in a shared Google Sheet?,[Your_Agent_Name]
 Is two-factor authentication required for VPN access?,[Your_Agent_Name]
@@ -144,7 +144,10 @@ python3 tools.py
 ### Run Generate Command
 
 ```bash
+pip3 install --upgrade "ibm-watsonx-orchestrate[agentops]"
+```
 
+```bash
 orchestrate evaluations generate \
   --stories-path ./evaluation/stories.csv \
   --tools-path ./evaluation/tools.py \
