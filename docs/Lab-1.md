@@ -12,6 +12,9 @@ nav_order: 2
 # Install Watson Orchestrate CLI (if not already installed)
 pip install ibm-watsonx-orchestrate
 
+# Verify installation
+orchestrate --version
+
 # Activate environment with your credentials
 orchestrate env activate
 
@@ -296,7 +299,3 @@ After Lab 1, proceed to **Lab 2: Evaluation Framework** for automated testing.
 ---
 
 
-
----
-
-[← Back to Home](index.md) | [Next: Lab 2 →](lab2.md)

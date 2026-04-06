@@ -343,7 +343,3 @@ orchestrate agents list  # Verify agent name
 
 
 
----
-
-[← Back to Home](index.md)
-

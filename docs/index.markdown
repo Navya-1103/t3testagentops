@@ -35,58 +35,7 @@ ServiceDeskAgent-Package/
 
 ---
 
-## Quick Start
 
-### Prerequisites
-
-```bash
-# Install Watson Orchestrate CLI
-pip install ibm-watsonx-orchestrate
-
-# Verify installation
-orchestrate --version
-```
-
-### Installation (2 minutes)
-
-```bash
-# 1. Activate environment with your credentials
-orchestrate env activate
-# When prompted, enter:
-# - WxO Service Instance URL: [Your instance URL]
-# - API Key: [Your API key]
-
-# 2. Clone or download this package
-cd ServiceDeskAgent-Package
-
-# 3. Run import and deployment script
-chmod +x import_and_deploy.sh
-./import_and_deploy.sh
-
-# This script will:
-#    - Import tools (ticket_creator, policy_lookup)
-#    - Import agent (with tools automatically attached)
-#    - Deploy the agent
-```
-
-### Manual Steps Required
-
-After running the import script:
-
-1. **Upload Knowledge Base** (in UI):
-   - Go to Watson Orchestrate UI
-   - Navigate to Agents → Service_Desk_Assistant
-   - Click 'Knowledge Base' section
-   - Upload `knowledge_base/company_policies.txt`
-   - Wait 2-3 minutes for processing
-
-2. **Enable Monitoring** (for evaluation):
-   - Click hamburger menu (☰)
-   - Select 'Analyze'
-   - Find 'Service_Desk_Assistant'
-   - Toggle 'Monitor' to ON
-
----
 
 ## Lab Structure
 
@@ -106,7 +55,6 @@ After running the import script:
 - **Analysis:** Deep dive into conversations, messages, and tools
 
 
-
 ---
 
 ### Lab 2: Evaluation Framework (60 minutes)
@@ -119,13 +67,6 @@ After running the import script:
 - Generate synthetic test cases
 - Run automated evaluations
 - Analyze results programmatically
-
-**Key Steps:**
-- Create stories.csv (5 test scenarios)
-- Define tools.py (tool definitions)
-- Generate test cases (5 synthetic test cases)
-- Run evaluation
-- Analyze results
 
 ---
 
@@ -174,35 +115,6 @@ After running the import script:
    - Lab 1 for interactive debugging
    - Lab 2 for automated regression testing
 
----
-
-## Test Scenarios
-
-### Lab 1: Manual Testing (9 messages, 3 conversations)
-
-**Conversation 1:** Simple policy questions
-- Can I store customer data in Google Sheets?
-- Is 2FA required for VPN?
-- Who approves vendor access?
-
-**Conversation 2:** Complex policy questions
-- Vendor approval process walkthrough
-- US vs EU vendor differences
-- PII exposure incident response
-
-**Conversation 3:** Tool usage and tickets
-- Report phishing email (creates ticket)
-- Request database access (creates ticket)
-- Stolen laptop with data (creates critical ticket)
-
-### Lab 2: Automated Testing (12 test cases)
-
-- Policy questions (data storage, 2FA, vendor approval)
-- Process explanations (vendor approval, incident reporting)
-- Ticket creation scenarios (phishing, access, stolen device)
-- System requirements (passwords, security)
-
----
 
 ## Key Features
 
@@ -243,27 +155,6 @@ After running the import script:
 - Scriptable evaluation
 - Automated regression testing
 
----
-
-## Success Metrics
-
-### Lab 1 Success Criteria
-
-- Agent responds to all 9 messages
-- Creates tickets when appropriate
-- References correct policies
-- Provides complete answers
-- Reasonable cost per conversation
-
-### Lab 2 Success Criteria
-
-- 80%+ journey success rate
-- High text match scores
-- Correct tool calls
-- Consistent performance
-- Automated evaluation runs successfully
-
----
 
 ## File Sizes
 
@@ -311,33 +202,6 @@ cat .env
 orchestrate agents list
 ```
 
----
-
-## Best Practices
-
-### Agent Development
-
-1. **Start Simple** - Test basic questions first
-2. **Iterate** - Use Lab 1 to identify issues
-3. **Automate** - Use Lab 2 for regression testing
-4. **Monitor** - Keep monitoring enabled
-5. **Optimize** - Act on dashboard insights
-
-### Knowledge Base
-
-1. **Clear Structure** - Use section headers
-2. **Specific Guidance** - Provide actionable information
-3. **Examples** - Include real-world scenarios
-4. **Updates** - Re-run evaluation after changes
-
-### Evaluation
-
-1. **Comprehensive Coverage** - Test all capabilities
-2. **Regular Runs** - Daily automated evaluation
-3. **Track Trends** - Monitor success rates over time
-4. **Fix Issues** - Address failures promptly
-
----
 
 ## Additional Resources
 
