@@ -234,6 +234,8 @@ My laptop was stolen from my car last night. It has customer data on it. What do
 
 1. Navigate to **Analysis** section
 2. Click **Conversations** tab
+
+
   ![image](./imgs/lab1/step_5a.png)
 
 3. Sort by Cost (descending)
@@ -242,6 +244,8 @@ My laptop was stolen from my car last night. It has customer data on it. What do
 ### 5.2 Message-Level Dashboard
 
 1. Click **Messages** tab
+
+
   ![image](./imgs/lab1/step_5b.png)
 
 2. Sort by output tokens (descending)
@@ -250,6 +254,8 @@ My laptop was stolen from my car last night. It has customer data on it. What do
 ### 5.3 Tool-Level Dashboard
 
 1. Click **Tools** tab
+
+
   ![image](./imgs/lab1/step_5c.png)
 
 ---
