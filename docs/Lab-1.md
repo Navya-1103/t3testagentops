@@ -176,7 +176,7 @@ My laptop was stolen from my car last night. It has customer data on it. What do
 
   ![image](./imgs/lab1/step_2a.png)
 
-3. Find **Service_Desk_Assistant**
+3. Find and Click on **Service_Desk_Assistant**
 
   ![image](./imgs/lab1/step_3b.png)
 
