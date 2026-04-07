@@ -45,7 +45,7 @@ orchestrate agents list | grep "Service_Desk"
 
   ![image](./imgs/lab1/lab2_1.png)
 
-Note: 1 in the image refers to `[Your_Agent_Name]`
+**Note:** 1 in the image refers to `[Your_Agent_Name]`
 ---
 
 ## Part 2: Create User Stories (10 minutes)
@@ -235,7 +235,7 @@ ls -la ./evaluation/results/
 
   ![image](./imgs/lab1/results.png)
 
-Note: 1 in the image refers to `[Your_result_name]`
+**Note:** 1 in the image refers to `[Your_result_name]`
 
 As shown in the Image Example: `./evaluation/results/2026-04-07_01-19-41/`
 
