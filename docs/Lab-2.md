@@ -45,6 +45,7 @@ orchestrate agents list | grep "Service_Desk"
 
   ![image](./imgs/lab1/lab2_1.png)
 
+Note: 1 in the image refers to `[Your_Agent_Name]`
 ---
 
 ## Part 2: Create User Stories (10 minutes)
@@ -143,8 +144,10 @@ python3 tools.py
 
 ### Run Generate Command
 
+Navigate to parent directory:
+
 ```bash
-pip3 install --upgrade "ibm-watsonx-orchestrate[agentops]"
+cd ..
 ```
 
 ```bash
@@ -206,6 +209,7 @@ DEFAULT_MODEL=groq/openai/gpt-oss-120b
 ```
 
 Verify configuration:
+
 ```bash
 cat .env
 ```
@@ -229,7 +233,11 @@ orchestrate evaluations evaluate \
 ls -la ./evaluation/results/
 ```
 
-Example: `./evaluation/results/2026-04-02_14-30-15/`
+  ![image](./imgs/lab1/results.png)
+
+Note: 1 in the image refers to `[Your_result_name]`
+
+As shown in the Image Example: `./evaluation/results/2026-04-07_01-19-41/`
 
 ---
 
@@ -238,22 +246,22 @@ Example: `./evaluation/results/2026-04-02_14-30-15/`
 ### View Summary Metrics
 
 ```bash
-cat ./evaluation/results/2026-04-02_14-30-15/summary_metrics.csv
+cat ./evaluation/results/[Your_result_name]/summary_metrics.csv
 ```
 
 
 ### Calculate Success Rate
 
 ```bash
-grep "1.0,Summary Matched" ./evaluation/results/2026-04-02_14-30-15/summary_metrics.csv | wc -l
-wc -l < ./evaluation/results/2026-04-02_14-30-15/summary_metrics.csv
+grep "1.0,Summary Matched" ./evaluation/results/[Your_result_name]/summary_metrics.csv | wc -l
+wc -l < ./evaluation/results/[Your_result_name]/summary_metrics.csv
 ```
 
 ### Run Detailed Analysis
 
 ```bash
 orchestrate evaluations analyze \
-  -d ./evaluation/results/2026-04-02_14-30-15
+  -d ./evaluation/results/[Your_result_name]
 ```
 
 **Navigation:**
@@ -265,16 +273,20 @@ orchestrate evaluations analyze \
 ### Identify Issues
 
 ```bash
-grep -E "0.0|0.5" ./evaluation/results/2026-04-02_14-30-15/summary_metrics.csv
+grep -E "0.0|0.5" ./evaluation/results/[Your_result_name]/summary_metrics.csv
 ```
 
 
 ### Review Individual Results
 
 ```bash
-cat ./evaluation/results/2026-04-02_14-30-15/synthetic_test_case_1.metadata.json | python3 -m json.tool
-cat ./evaluation/results/2026-04-02_14-30-15/messages/synthetic_test_case_1.messages.json | python3 -m json.tool
+cat ./evaluation/results/[Your_result_name]/synthetic_test_case_1.metadata.json | python3 -m json.tool
+cat ./evaluation/results/[Your_result_name]/messages/synthetic_test_case_1.messages.json | python3 -m json.tool
 ```
+
+  ![image](./imgs/lab1/table1.png)
+
+  ![image](./imgs/lab1/table2.png)
 
 ---
 

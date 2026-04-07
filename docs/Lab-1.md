@@ -92,11 +92,9 @@ For quick common questions, try the lookup_policy tool first.
 
 3. Find **Service Desk Assistant**
 
-  ![image](./imgs/lab1/step_2a.png)
-
 4. Toggle **Monitor** to **ON**
 
-  ![image](./imgs/lab1/step_2b.png)
+  ![image](./imgs/lab1/step_2a.png)
 
   ![image](./imgs/lab1/step_2c.png)
 
@@ -232,6 +230,7 @@ My laptop was stolen from my car last night. It has customer data on it. What do
 - Success rate
 - Response time trends
 
+  ![image](./imgs/lab1/conversation.png)
 
 ### 4.3 Message Metrics
 
