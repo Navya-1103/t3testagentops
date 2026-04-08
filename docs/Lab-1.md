@@ -285,49 +285,114 @@ My laptop was stolen from my car last night. It has customer data on it. What do
 
 ---
 
-## Part 6: Key Insights (5 minutes)
+## Part 6: Key Insights - Message Metrics Analysis (15 minutes)
+
+### 6.1 Understanding Answer Quality Metrics
+
+The AgentOps dashboard provides comprehensive metrics to evaluate your agent's performance. Let's analyze the key metrics:
+
+#### Agent Retrieval and Answer Quality
+
+  ![image](./imgs/lab1/metrics1.png)
+
+**Key Metrics Explained:**
+
+1. **Answer Relevance (Score: 1.0)** - Perfect score indicating the agent's responses directly address user questions
+2. **Context Relevance (Score: 1.0)** - Perfect score showing the knowledge base retrieves highly relevant information
+3. **Faithfulness (Score: 1.0)** - Perfect score confirming responses are grounded in the knowledge base content
+
+  ![image](./imgs/lab1/metrics2.png)
+
+**What This Tells Us:**
+
+With all metrics scoring **1.0 (perfect score)**, we can conclude:
+- **No need to modify the knowledge base** - The current content is comprehensive and well-structured
+- **Retrieval is working optimally** - The agent finds the right information every time
+- **Responses are accurate** - The agent provides contextually relevant answers
+
+#### Distribution Analysis
+
+  ![image](./imgs/lab1/metrics10.png)
+
+The distribution chart shows that the majority of messages achieve high answer relevance scores (0.80-1.00 range), with most clustering at the perfect 1.0 score.
+
+  ![image](./imgs/lab1/metrics11.png)
+
+Similarly, context relevance shows all messages achieving a perfect 1.0 score, indicating the knowledge base consistently provides relevant context.
 
 
-### Cost Optimization
+### 6.2 Agent Content Safety for Messages
 
-**Identify:**
-- Most expensive question types
-- Verbose responses
-- Knowledge base retrieval efficiency
-- Tool call optimization
+Despite the user's frustration, the agent responded professionally and helpfully, explaining the policy without mirroring the user's tone.
 
-### Performance Optimization
+  ![image](./imgs/lab1/metrics5.png)
 
-**Review:**
-- Average response time
-- Slowest queries
-- Tool execution impact
-- Accuracy assessment
+- **Input HAP: 0.9964** - High score indicating strong negative sentiment
+- **Output HAP: 0** - Agent maintained professionalism
+- **Prompt Safety Risk: 0.5632** - Elevated risk level
 
-### User Experience
+**What the Graph Shows:**
 
-**Evaluate:**
-- Response quality
-- Completeness
-- Tool usage appropriateness
+  ![image](./imgs/lab1/metrics7.png)
 
----
+- **Input HAP** (Blue line) - Shows spikes when users use inappropriate language (around 4:00 PM)
+- **Output HAP** (Dark green line) - Remains at 0 throughout, showing consistent professional responses
+- **Input PII** (Brown line) - Consistently high (0.8), indicating users frequently mention sensitive data
+- **Output PII** (Dark brown line) - Remains high (0.8), as the agent discusses data protection policies
+- **Prompt Safety Risk** (Purple line) - Varies based on input content but stays below critical threshold
 
-## Dashboard Sections Summary
+**Important Insight:** The high PII scores in both input and output are expected in this use case, as:
+- Users ask about handling customer data (Input PII)
+- The agent discusses data protection policies and examples (Output PII)
+- This is legitimate business context, not a security concern
 
-### Evaluation Section
-- Overall Alerts
-- Conversation Metrics
-- Message Metrics
-- Tool Metrics (basic)
+### 6.3 Detailed Message Analysis
 
-### Analysis Section
-- Conversations (drill-down)
-- Messages (token analysis)
-- Tools (detailed calls)
-- Settings (full details)
+  ![image](./imgs/lab1/metrics8.png)
 
----
+For each message, you can drill down to see:
+- **Answer Relevance Score** - How well the response addresses the question
+- **Input HAP Score** - Inappropriate content detection in user input
+- **Output HAP Score** - Ensures agent responses are appropriate
+- **Prompt Safety Risk** - Overall risk assessment
+- **Token Counts** - Resource usage metrics
+
+### 6.4 Key Takeaways for Agent Optimization
+
+Based on the metrics analysis:
+
+#### What's Working Well
+
+1. **Knowledge Base Quality**
+   - Perfect answer relevance (1.0) means no changes needed
+   - Perfect context relevance (1.0) shows optimal retrieval
+   - Content is comprehensive and well-structured
+
+2. **Content Safety**
+   - Agent maintains professionalism despite user frustration
+   - HAP monitoring successfully detects inappropriate input
+   - Output remains appropriate in all cases
+
+3. **Response Quality**
+   - Agent provides empathetic, helpful responses
+   - Addresses user concerns while maintaining policy compliance
+   - Explains "why" behind policies, not just "what"
+
+
+#### When to Take Action
+
+**Modify Knowledge Base If:**
+- Answer relevance drops below 0.8
+- Context relevance shows inconsistent scores
+- Users frequently ask follow-up questions
+
+**Review Agent Instructions If:**
+- Output HAP score increases above 0
+- Responses become too verbose or too brief
+- Tool usage patterns seem inefficient
+
+**In This Case:** With perfect scores across all quality metrics, the current configuration is optimal. No changes needed!
+
 
 ## Troubleshooting
 
