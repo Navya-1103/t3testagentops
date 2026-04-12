@@ -114,8 +114,8 @@ The printer is broken. Employee ID EMP4567.	Escalation Ticket	[Your_Agent_Name]
 export MODEL_OVERRIDE="meta-llama/llama-3-3-70b-instruct"
 
 orchestrate evaluations validate-native \
-  -t evaluations/helpdesk_validation.tsv \
-  -o evaluations/results/
+  -t evaluation/helpdesk_validation.tsv \
+  -o evaluation/results/
 ```
 
 #### What Happens
