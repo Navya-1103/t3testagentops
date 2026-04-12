@@ -10,24 +10,22 @@ nav_order: 2
 
 ## Lab Overview
 
-**Duration:** 60 minutes
+**Duration:** 30 minutes
 **Prerequisites:** Completed Lab 1, CLI installed, Python 3.8+
 
 **Target Audience:** Developers, data scientists, and QA engineers who need programmatic access to detailed metrics, want to automate testing, and require deeper insights than the UI dashboard provides.
 
-
 ---
 
-## Part 1: Setup (10 minutes)
+## Setup
 
 ### Step 1.1: Activate Environment
 
 ```bash
 # If not already activated from Lab 1
-orchestrate env activate
+orchestrate env activate <environment name>
 
 # When prompted, enter:
-# - WxO Service Instance URL: [Your instance URL]
 # - API Key: [Your API key]
 ```
 
@@ -40,260 +38,159 @@ mkdir -p evaluation/output evaluation/results
 ### Step 1.3: Verify Agent Name
 
 ```bash
-orchestrate agents list | grep "Service_Desk"
+orchestrate agents list
 ```
-
-  ![image](./imgs/lab1/lab2_1.png)
-
-**Note:** 1 in the image refers to `[Your_Agent_Name]`
 ---
 
-## Part 2: Create User Stories (10 minutes)
+## Evaluation Framework
 
-### Create stories.csv
+### How Evaluation Works
 
-Create `evaluation/stories.csv`:
+The evaluation framework uses a **surrogate user** (an LLM-powered agent) that simulates real user interactions:
+
+```
+                    ┌─────────────┐
+                    │ User Story  │  (what the user wants to do)
+                    └──────┬──────┘
+                           │
+                    ┌──────▼──────┐
+                    │  Surrogate  │  (LLM simulates the user)
+                    │    User     │
+                    └──────┬──────┘
+                           │ sends messages
+                    ┌──────▼──────┐
+                    │   Target    │  (your agent being tested)
+                    │   Agent     │
+                    └──────┬──────┘
+                           │ responses
+                    ┌──────▼──────┐
+                    │  Compare    │  (actual vs expected)
+                    │  Results    │
+                    └─────────────┘
+```
+
+1. The surrogate user follows the **user story** to send messages to your agent
+2. Your agent responds, calls tools, routes to collaborators
+3. Actual tool calls and responses are **compared** against expected results
+4. **Journey Success** = all tool calls correct + high-quality summary
+
+### Scoring Metrics (evaluate)
+
+| Metric | Description |
+|---|---|
+| **Tool Call Precision** | Correct tool calls / total tool calls |
+| **Tool Call Recall** | Correctly sequenced tool calls |
+| **Agent Routing Accuracy** | Correct collaborator routing |
+| **Text Match** | 0-100% response similarity to expected |
+| **Journey Success** | Boolean — entire flow correct end-to-end |
+| **Avg Response Time** | Seconds per response |
+
+---
+
+### Create User Stories
+
+Set it before running any evaluation command:
+
+```bash
+export MODEL_OVERRIDE="meta-llama/llama-3-2-90b-vision-instruct"
+```
+
+Create `evaluation/helpdesk_validation.tsv`:
 
 **Important:** Replace `[Your_Agent_Name]` with your actual agent name.
 
 ```
-story,agent
-Can I store customer data in a shared Google Sheet?,[Your_Agent_Name]
-Is two-factor authentication required for VPN access?,[Your_Agent_Name]
-I received a phishing email can you help me report it?,[Your_Agent_Name]
-I need access to the customer database can you create a ticket?,[Your_Agent_Name]
-My laptop was stolen with customer data on it what do I do?,[Your_Agent_Name]
+I forgot my password. My employee ID is EMP1234.	Password reset successful	[Your_Agent_Name]
+VPN keeps disconnecting. Employee ID EMP5678.	Troubleshooting Steps	[Your_Agent_Name]
+Please install figma. Employee ID EMP3456.	Software Installation Request 	[Your_Agent_Name]
+The printer is broken. Employee ID EMP4567.	Escalation Ticket	[Your_Agent_Name]
 ```
 
+
+### validate-native (Validation with TSV)
+
+```bash
+# Set MODEL_OVERRIDE for non-Dallas regions (see Region-Specific Setup above)
+export MODEL_OVERRIDE="meta-llama/llama-3-3-70b-instruct"
+
+orchestrate evaluations validate-native \
+  -t evaluations/helpdesk_validation.tsv \
+  -o evaluations/results/
+```
+
+#### What Happens
+
+1. TSV is converted to 4 JSON test cases in `generated_test_data/`
+2. A **surrogate user** (LLM) simulates each conversation with your agent
+3. The surrogate user sends messages based on the user story
+4. Your agent responds, calls tools, and completes the task
+5. The final response is compared against the expected output
+
+#### Example Output (IT Helpdesk)
+
+```
+[Task-0] 👤 User: I forgot my password and I need to reset it
+[Task-0] 🤖 Agent: What is your employee ID?
+[Task-0] 👤 User: It's EMP1234.
+[Task-0] 🤖 Agent: → calls reset_password(employee_id="EMP1234")
+[Task-0] 🤖 Agent: Your password has been reset. Temporary password: Temp@12342026!
+[SUCCESS] Text message matched
+```
+
+**Key metrics to check**:
+- **Text Match**: Does the response contain the expected output? (100% = all matched)
+- **Journey Success**: Did the entire conversation flow complete correctly? (1.0 = yes)
+- **Journey Completion %**: What percentage of the expected journey was completed?
+- **Avg Resp Time**: Average response time per message (< 5 sec is good)
+
+**Note**: `[WARNING] Unexpected function call` means the TSV didn't define expected tool calls (only expected output text). This is normal for TSV-based validation — the tool calls are still executed correctly, just not pre-defined in the ground truth.
+
+Results saved to `evaluation/results/native_agent_evaluations/<timestamp>/`.
+
+
+
+### quick-eval (Schema & Hallucination Check)
+
+`quick-eval` checks a **different angle** than `validate-native`:
+- `validate-native` asked: **"Is the final answer correct?"** (text matching)
+- `quick-eval` asks: **"Are the tool calls valid?"** (schema compliance, no hallucinated tools)
+
+It reuses the **JSON test cases generated by Step 1**:
+
+```bash
+orchestrate evaluations quick-eval \
+  --test-paths evaluation/results/native_agent_evaluations/generated_test_data \
+  --tools-path python_tools/ \
+  --output-dir evaluation/quick-eval-results/
+```
+
+| What It Checks | Description |
+|---|---|
+| Tool Calls | Total attempted invocations |
+| Successful Tool Calls | Error-free executions |
+| Schema Mismatch | Input/output schema incompatibilities |
+| Hallucination Failures | Calls to non-existent tools |
+
+
+### Evaluate test on watsonx orchestarte UI 
+
+1. Click on the hamburger menu
+2. Click on Build 
+
+  ![image](./imgs/lab1/lab1-step3.png)
+
+3. Select your Agent 
+
+ ![image](./imgs/lab1/lab1-step4.png)
+
+4. Chat with your Agent via the Preview 
 
 ---
 
-## Part 3: Define Evaluation Tools (15 minutes)
 
-### Create tools.py
+## Key Insights
 
-Create `evaluation/tools.py`:
-
-```python
-"""
-Evaluation Tools for Service Desk Assistant
-"""
-
-from ibm_watsonx_orchestrate.agent_builder.tools import tool
-from typing import Literal
-import json
-
-
-@tool()
-def create_ticket(
-    category: Literal["hardware", "software", "access", "security"],
-    priority: Literal["low", "medium", "high", "critical"],
-    title: str,
-    description: str,
-    requester_email: str
-) -> str:
-    """Creates an IT support ticket."""
-    result = {
-        "status": "success",
-        "ticket_number": f"TKT-{category[:3].upper()}-12345",
-        "category": category,
-        "priority": priority,
-        "estimated_resolution": "24 hours"
-    }
-    return json.dumps(result)
-
-
-@tool()
-def lookup_policy(
-    policy_area: Literal["data_storage", "vendor_approval", "incident_reporting", "system_access", "password_requirements"],
-    specific_question: str = ""
-) -> str:
-    """Looks up quick policy information."""
-    result = {
-        "status": "success",
-        "policy_area": policy_area,
-        "key_points": ["Policy guidance point 1", "Policy guidance point 2"],
-        "contact": "security@company.com"
-    }
-    return json.dumps(result)
-
-
-@tool()
-def query_knowledge_base(question: str) -> str:
-    """Queries the company policies knowledge base."""
-    result = {
-        "status": "success",
-        "question": question,
-        "policy_guidance": "Detailed policy guidance",
-        "source": "Company IT Policies"
-    }
-    return json.dumps(result)
-```
-
-### Test tools.py
-
-```bash
-cd evaluation
-python3 tools.py
-```
-
-
----
-
-## Part 4: Generate Test Cases (10 minutes)
-
-### Run Generate Command
-
-Navigate to parent directory:
-
-```bash
-cd ..
-```
-
-```bash
-orchestrate evaluations generate \
-  --stories-path ./evaluation/stories.csv \
-  --tools-path ./evaluation/tools.py \
-  --output-dir ./evaluation/output
-```
-
->
-> **ALTERNATIVE APPROACH:** Instead of generating synthetic test cases, you can capture real interactions with your agent:
-> - **Via UI:** Chat with your agent in Watson Orchestrate UI, then export the conversation as test data
-> - **Via ADK (Agent Development Kit):** Programmatically interact with your agent using the ADK SDK and capture the conversation flow
->
-> Synthetic generation (what we're doing here) is faster for creating many test scenarios, while captured interactions provide real-world test data. Choose based on your testing needs.
-
-### Verify Generated Files
-
-**Important:** Replace `[Your_Agent_Name]` with your actual agent name.
-
-```bash
-ls -la ./evaluation/output/
-ls -1 ./evaluation/output/[Your_Agent_Name]_test_cases/ | wc -l
-```
-
-Expected: 5 test case files
-
-### Review Test Case Structure
-
-**Important:** Replace `[Your_Agent_Name]` with your actual agent name.
-
-```bash
-cat ./evaluation/output/[Your_Agent_Name]_test_cases/synthetic_test_case_1.json | python3 -m json.tool
-```
-
-
----
-
-## Part 5: Run Evaluation (10 minutes)
-
-### Configure Environment
-
-Create `.env` file from the example:
-
-```bash
-# Copy example file
-cp exampleDotEnv.txt .env
-
-# Edit with your credentials
-nano .env  # or use your preferred editor
-```
-
-Fill in your actual values:
-```
-WO_API_KEY=your-actual-api-key
-WO_INSTANCE=https://your-actual-instance-url
-USE_GATEWAY_MODEL_PROVIDER=groq
-DEFAULT_MODEL=groq/openai/gpt-oss-120b
-```
-
-Verify configuration:
-
-```bash
-cat .env
-```
-
-
-### Run Evaluation
-
-**Important:** Replace `[Your_Agent_Name]` with your actual agent name.
-
-```bash
-orchestrate evaluations evaluate \
-  --test-paths ./evaluation/output/[Your_Agent_Name]_test_cases/ \
-  --output-dir ./evaluation/results/ \
-  --env-file .env
-```
-
-
-### Locate Results
-
-```bash
-ls -la ./evaluation/results/
-```
-
-  ![image](./imgs/lab1/results.png)
-
-**Note:** 1 in the image refers to `[Your_result_name]`
-
-As shown in the Image Example: `./evaluation/results/2026-04-07_01-19-41/`
-
----
-
-## Part 6: Analyze Results (15 minutes)
-
-### View Summary Metrics
-
-```bash
-cat ./evaluation/results/[Your_result_name]/summary_metrics.csv
-```
-
-
-### Calculate Success Rate
-
-```bash
-grep "1.0,Summary Matched" ./evaluation/results/[Your_result_name]/summary_metrics.csv | wc -l
-wc -l < ./evaluation/results/[Your_result_name]/summary_metrics.csv
-```
-
-### Run Detailed Analysis
-
-```bash
-orchestrate evaluations analyze \
-  -d ./evaluation/results/[Your_result_name]
-```
-
-**Navigation:**
-- `↓` / `↑` - Scroll
-- `Space` - Page down
-- `q` - Quit
-
-
-### Identify Issues
-
-```bash
-grep -E "0.0|0.5" ./evaluation/results/[Your_result_name]/summary_metrics.csv
-```
-
-
-### Review Individual Results
-
-```bash
-cat ./evaluation/results/[Your_result_name]/synthetic_test_case_1.metadata.json | python3 -m json.tool
-cat ./evaluation/results/[Your_result_name]/messages/synthetic_test_case_1.messages.json | python3 -m json.tool
-```
-
-  ![image](./imgs/lab1/table1.png)
-
-  ![image](./imgs/lab1/table2.png)
-
----
-
-## Part 7: Key Insights (5 minutes)
-
-
-### Optimization Opportunities
+### Optimization Opportunities 
 
 **Agent Improvements:**
 - Refine instructions
@@ -310,16 +207,6 @@ cat ./evaluation/results/[Your_result_name]/messages/synthetic_test_case_1.messa
 - Include more examples
 - Improve policy wording
 
-### Re-run After Changes
-
-**Important:** Replace `[Your_Agent_Name]` with your actual agent name.
-
-```bash
-orchestrate evaluations evaluate \
-  --test-paths ./evaluation/output/[Your_Agent_Name]_test_cases/ \
-  --output-dir ./evaluation/results/ \
-  --env-file .env
-```
 
 ---
 
@@ -343,6 +230,18 @@ orchestrate evaluations evaluate \
 orchestrate agents list  # Verify agent name
 ```
 
+**Importing evaluation dependencies failed:**
+
+``` bash
+[ERROR] - Failed to import evaluation dependencies: No module named 'agentops'. Please install them using `pip install --upgrade "ibm-watsonx-orchestrate[agentops]"`
+
+#USE THIS COMMAND:
+pip install --upgrade "ibm-watsonx-orchestrate[agentops]"
+
+OR 
+
+uv pip install --upgrade "ibm-watsonx-orchestrate[agentops]"
+```
 **Evaluation fails with 404:**
 - Check model configuration in .env
 - Verify matches agent's model
@@ -354,12 +253,7 @@ orchestrate agents list  # Verify agent name
 
 ---
 
-## Next Steps
-
-1. Automate evaluation (shell script, CI/CD)
-2. Expand test coverage
-3. Track improvements over time
-4. Integrate with deployment pipeline
+Thank you! This is the END of AgentOps Lab. 
 
 ---
 

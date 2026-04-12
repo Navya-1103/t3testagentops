@@ -4,42 +4,16 @@ title: About
 nav_order: 0
 ---
 
-# Service Desk Assistant Agent - Lab Package
+# IT HelpDesk Agent - Lab
 
 ## Overview
 
-Complete hands-on lab package for learning agent monitoring and evaluation using Watson Orchestrate. Includes a Service Desk Assistant agent with IT support tools and company policy knowledge base.
-
-### Package Contents
-
-```
-ServiceDeskAgent-Package/
-├── agents/
-│   └── native/
-│       └── ServiceDeskAssistant.yaml     # Agent configuration (with tools)
-├── knowledge_base/
-│   └── company_policies.txt              # IT policies (250 lines, ~50KB)
-├── python_tools/
-│   ├── ticket_creator_tool.py            # IT ticket creation tool
-│   └── policy_lookup_tool.py             # Quick policy lookup tool
-├── evaluation/                           # For Lab 2 (created during lab)
-│   ├── tools.py                          # Evaluation tool definitions
-│   ├── stories.csv                       # User stories for testing
-│   ├── output/                           # Generated test cases
-│   └── results/                          # Evaluation results
-├── import_and_deploy.sh                  # Import and deployment script
-├── LAB1_UI_DASHBOARD_GUIDE.md            # Lab 1: UI Dashboard
-├── LAB2_EVALUATION_FRAMEWORK_GUIDE.md    # Lab 2: Evaluation Framework
-└── README.md                             # This file
-```
-
----
-
+Complete hands-on lab package for learning agent monitoring and evaluation using Watson Orchestrate. Includes a IT Help Desk agent with IT support tools and company policy knowledge base.
 
 
 ## Lab Structure
 
-### Lab 1: AgentOps UI Dashboard (60 minutes)
+### Lab 1: AgentOps UI Dashboard (30 minutes)
 
 **Focus:** Visual monitoring and analysis
 
@@ -57,7 +31,7 @@ ServiceDeskAgent-Package/
 
 ---
 
-### Lab 2: Evaluation Framework (60 minutes)
+### Lab 2: Evaluation Framework (30 minutes)
 
 **Focus:** Automated testing and programmatic evaluation
 
@@ -72,39 +46,76 @@ ServiceDeskAgent-Package/
 
 ## Agent Configuration
 
-### Service Desk Assistant
+### IT Help Desk 
 
-**Purpose:** Help users with IT support and policy questions
-
-**Capabilities:**
-1. **IT Ticket Creation** - Create support tickets for hardware, software, access, or security issues
-2. **Policy Lookup** - Quick answers to common policy questions
-3. **Knowledge Base** - Comprehensive company IT policies
+**Purpose:** Help users with IT support, and policy related questions 
 
 **Tools:**
-- `create_ticket` - Creates IT support tickets with priority and category
-- `lookup_policy` - Provides quick policy guidance
+- `diagnose_vpn` - Diagnose VPN connection issues and provide troubleshooting steps.
+- `escalate_ticket` - Create an escalation ticket for issues 
+- `request_software` - Request software installations for approved software 
+- `reset_password` - Reset the password for an employee and returns temporary password
 
 **Knowledge Base:**
-- Data Handling Policy
-- Third Party Access Policy
-- Security Incident Reporting Policy
-- Acceptable Use Policy
+- `it_policy` - Company IT policies and guidelines for employees
 
 ---
+
+## Setup 
+
+### Create the API Key and access the Service URL for your instance 
+
+1. Access the IBM CLoud of your TechZone Instance 
+2. To create your API Key, click on **Manage**
+
+  ![image](./imgs/prereq/setup-step1.png)
+
+3. Click on **Access (IAM)**
+
+  ![image](./imgs/prereq/setup-step2.png)
+
+4. Click on **API Key**
+
+  ![image](./imgs/prereq/setup-step3.png)
+
+5. Ensure the View is selected as **My IBM Cloud API Keys** and Click on **Create**
+
+  ![image](./imgs/prereq/setup-step4.png)
+
+6. Name your API Key and click on **Create**
+
+  ![image](./imgs/prereq/setup-step5.png)
+
+7. **Important:** Copy the API Key to your notes to access easily during the lab 
+
+  ![image](./imgs/prereq/setup-step6.png)
+
+8. Click on the Hamburger menu on the top left and select **Resource List**
+
+  ![image](./imgs/prereq/setup-step7.png)
+
+9. Click on AI / Machine Learning and **Watson Orchestarte-itz**
+
+  ![image](./imgs/prereq/setup-step8.png)
+
+10. Copy the Service URL to your notes to access easily during the lab
+
+  ![image](./imgs/prereq/setup-step9.png)
+
+You are now ready to start the labs. Have fun!
 
 ## Lab Workflow
 
 ### Recommended Path
 
-1. **Start with Lab 1** (60 min)
+1. **Start with Lab 1** (30 min)
    - Import agent and tools
    - Add knowledge base
    - Generate test conversations
    - Explore AgentOps dashboard
    - Learn Evaluation and Analysis sections
 
-2. **Then Complete Lab 2** (60 min)
+2. **Then Complete Lab 2** (30 min)
    - Create user stories
    - Define evaluation tools
    - Generate test cases
@@ -114,56 +125,6 @@ ServiceDeskAgent-Package/
 3. **Use Both Together**
    - Lab 1 for interactive debugging
    - Lab 2 for automated regression testing
-
-
-## Key Features
-
-### Lab 1 Features
-
-**Real-time Monitoring**
-- Live conversation tracking
-- Cost analysis per message
-- Token usage visualization
-- Response time metrics
-
-**Two-Section Dashboard**
-- **Evaluation:** Overview, conversation metrics, message metrics, tool metrics
-- **Analysis:** Conversation-level, message-level, tool-level deep dives
-
-**Interactive Exploration**
-- Drill down into specific issues
-- Message-level token analysis
-- Tool call inspection
-- Security assessment
-
-### Lab 2 Features
-
-**Automated Testing**
-- Synthetic test case generation
-- Batch evaluation
-- Programmatic analysis
-- Reproducible results
-
-**Comprehensive Metrics**
-- Journey success rates
-- Text match quality
-- Tool call accuracy
-- Performance benchmarks
-
-**CI/CD Ready**
-- Command-line interface
-- Scriptable evaluation
-- Automated regression testing
-
-
-## File Sizes
-
-All files optimized for easy upload:
-
-- **company_policies.txt:** ~50KB (250 lines)
-- **ticket_creator_tool.py:** ~4KB
-- **policy_lookup_tool.py:** ~5KB
-- **Total package:** <1MB
 
 ---
 
@@ -176,7 +137,7 @@ All files optimized for easy upload:
 # Solution: Check CLI installation
 orchestrate --version
 # Ensure environment is activated
-orchestrate env activate
+orchestrate env activate `[Your_env_name]`
 ```
 
 **Issue: Knowledge base not working**
@@ -198,7 +159,7 @@ orchestrate env activate
 ```bash
 # Solution: Check .env file
 cat .env
-# Verify agent name in stories.csv
+# Verify agent name in helpdesk_validation.tsv
 orchestrate agents list
 ```
 
@@ -212,10 +173,6 @@ orchestrate agents list
 - [Evaluation Framework](https://developer.watson-orchestrate.ibm.com/evaluate/framework)
 - [LLM Vulnerability Guide](https://developer.watson-orchestrate.ibm.com/evaluate/llm_vulnerability)
 
-### Related Packages
-
-- **EvaluationAgent-Package** - Original framework with comprehensive documentation
-- **EVALUATIONAGENT_COMPLETE_DOCUMENTATION.md** - Complete 10-phase guide
 
 ---
 
@@ -235,60 +192,11 @@ orchestrate agents list
 
 ---
 
-## Version History
-
-### Version 2.0 (April 2026)
-- Simplified policy document (single file, 250 lines)
-- Added 2 practical tools (ticket creator, policy lookup)
-- Streamlined Lab 1 (focus on Evaluation and Analysis sections)
-- Simplified Lab 2 (focus on test generation and evaluation)
-- Added import script for easy setup
-- Optimized for hands-on learning
-
----
-
-## Quick Reference
-
-### Lab 1 Commands
-
-```bash
-# Run import script
-./import_agent_and_tools.sh
-
-# Then in UI:
-# 1. Add knowledge base
-# 2. Enable monitoring (Analyze → Toggle Monitor ON)
-# 3. Send 9 test messages (3 conversations, 10 min apart)
-# 4. View dashboard (Analyze → View Dashboard)
-```
-
-### Lab 2 Commands
-
-```bash
-# Generate test cases
-orchestrate evaluations generate \
-  --stories-path ./evaluation/stories.csv \
-  --tools-path ./evaluation/tools.py \
-  --output-dir ./evaluation/output
-
-# Run evaluation
-orchestrate evaluations evaluate \
-  --test-paths ./evaluation/output/Service_Desk_Assistant_*/  \
-  --output-dir ./evaluation/results/ \
-  --env-file .env
-
-# Analyze results
-orchestrate evaluations analyze \
-  -d ./evaluation/results/[timestamp]
-```
-
----
-
 ## Lab Comparison
 
 | Aspect | Lab 1 | Lab 2 |
 |--------|-------|-------|
-| **Duration** | 60 min | 60 min |
+| **Duration** | 30 min | 30 min |
 | **Method** | Manual testing | Automated testing |
 | **Interface** | Visual dashboard | Command line |
 | **Focus** | Interactive exploration | Programmatic evaluation |
@@ -297,7 +205,7 @@ orchestrate evaluations analyze \
 
 ---
 
-**Total Lab Time:** 2 hours  
+**Total Lab Time:** 1 hour
 **Difficulty:** Beginner to Intermediate  
 **Outcome:** Complete understanding of agent monitoring and evaluation
 

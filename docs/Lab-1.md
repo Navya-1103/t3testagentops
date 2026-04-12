@@ -4,13 +4,27 @@ title: Lab 1
 # permalink: /lab1/
 nav_order: 1
 ---
-## Part 1: Setup (15 minutes)
+## Part 1: Setup
 
 ### Step 1.1: Activate Environment
 
 ```bash
 # Install Watson Orchestrate CLI (if not already installed)
-pip install ibm-watsonx-orchestrate
+uv init 
+uv add ibm-watsonx-orchestarte 
+
+OR 
+
+pip install ibm-watsonx-orchestrate 
+
+# Create a virtual environment in the project root
+python3.12 -m venv .venv
+
+# Activate it
+source .venv/bin/activate    # macOS/Linux
+
+# Install ADK CLI + evaluation support
+pip install --upgrade "ibm-watsonx-orchestrate[agentops]"
 
 # Verify installation
 orchestrate --version
@@ -18,199 +32,187 @@ orchestrate --version
 # Create environment
 orchestrate env add -n <environment-name> -u <service-instance-url>
 
+# When prompted, enter:
+# - API Key: [Your API key]
+
 # Activate environment with your credentials
 orchestrate env activate <environment name>
 
-# When prompted, enter:
-# - API Key: [Your API key]
 ```
 
-### Step 1.2: Run Import Script
+### Step 1.2: Import the tools, knowledge bases and agents 
+
+#### Tools 
 
 ```bash
-chmod +x import_and_deploy.sh
-./import_and_deploy.sh
+orchestrate tools import -k python -f `[The_path_to_your_tools_file]`
 ```
 
-**What this does:**
-- Imports the two Python tools (ticket_creator, policy_lookup)
-- Imports the agent with tools automatically attached
-- Deploys the agent
-
-### Step 1.3: Add Knowledge Base (Manual)
-
-1. Go to Watson Orchestrate UI
-
-2. Navigate to **Build** → **Service Desk Assistant**
-
-  ![image](./imgs/lab1/step_1a.png)
-  ![image](./imgs/lab1/step_1b.png)
-
-3. Go to **Knowledge Base** section and Click **Add source**
-
-  ![image](./imgs/lab1/step_1c.png)
-
-4. Click **New Knowledge** and then click **Upload files** and **Next**
-
-  ![image](./imgs/lab1/step_1d.png)
-  ![image](./imgs/lab1/step_1e.png)
-
-5. Upload [Company policies](./knowledge_base/company_policies.txt) under the **knowledge_base** folder
-
-
-  ![image](./imgs/lab1/step_1f.png)
-
-6. Add name and description
-
+Expected result:
 ```
-Company policies 
+[INFO] - Tool `[Your_tool_name]` imported successfully
+```
+**Important:** Ensure all you import the four python tools: escalate_ticket.py, request_software.py, diagnose_vpn.py, reset_password.py. 
+
+
+#### Knowledge Base
+
+```bash
+orchestrate knowledge-bases import -f `[The_path_to_your_knowledge_bases_file]`
 ```
 
+Expected result:
 ```
-Company IT Policies Knowledge Base
-
-This document contains comprehensive IT policies covering:
-- Data Handling Policy
-- Third Party Access Policy  
-- Security Incident Reporting Policy
-- Acceptable Use Policy
-
-Use this knowledge base to answer detailed policy questions.
-For quick common questions, try the lookup_policy tool first.
+[INFO] - Tool `[Your_knowledge-bases_name]` imported successfully
 ```
 
-7. Click **Save**
+#### Agent
 
-  ![image](./imgs/lab1/step_1h.png)
+**Important:** Before you import the agent, ensure you change the name of the agent to `[Your_initials]_it_helpdesk_agent`
 
-8. Wait 2-3 minutes for processing
+  ![image](./imgs/prereq/rename-step1.png)
 
-### Step 1.4: Enable Monitoring
+  ![image](./imgs/prereq/rename-step2.png)
 
-1. Click hamburger menu (☰)
-2. Select **Analyze**
+```bash
+orchestrate agents import -f `[The_path_to_your_agents_file]`
+```
 
-3. Find **Service Desk Assistant**
+Expected result:
+```
+[INFO] - Tool `[Your_knowledge-bases_name]` imported successfully
+```
 
-4. Toggle **Monitor** to **ON**
+### Step 1.3 Deploy your agent 
 
-  ![image](./imgs/lab1/step_2a.png)
+1. Launch your watsonx orchestrate 
 
-  ![image](./imgs/lab1/step_2c.png)
+  ![image](./imgs/lab1/lab1-step1.png)
+
+2. Click on the hamburger menu and click the **Build** dropdown 
+
+  ![image](./imgs/lab1/lab1-step2.png)
+
+  ![image](./imgs/lab1/lab1-step3.png)
+
+3. Click on your agent 
+
+  ![image](./imgs/lab1/lab1-step4.png)
+
+4. Now click on deploy to make your agent a Live, to allow you to monitor your analytics 
+
+  ![image](./imgs/lab1/lab1-step5.png)
+
+Wait a couple of minutes for your agent to be delpoyed. 
+
+5. Once your agent is deployed, activate monitoring when you receive the notification 
+
+  ![image](./imgs/lab1/lab1-step6.png)
+
+6. Click on the hamburger menu and Navigate to **Analyze**
+
+  ![image](./imgs/lab1/lab1-step7.png)
+
+Wait for the toggle to turn green to indicate the monitoring activated 
+
+  ![image](./imgs/lab1/lab1-step8.png)
 
 ---
 
-## Part 2: Generate Test Conversations (20 minutes)
+## Part 2: Generate Test Conversations
 
 1. Click hamburger menu (☰)
 2. Select **Chat**
 
-  ![image](./imgs/lab1/step_2d.png)
+  ![image](./imgs/lab1/lab1-step9.png)
 
-3. Click on **Service Desk Assistant**
+3. Click on **Your_Agent_Name**
 
-  ![image](./imgs/lab1/step_2e.png)
+  ![image](./imgs/lab1/lab1-step10.png)
 
-### Conversation 1: Simple Policy Questions
 
-**Message 1:**
-```
-Can I store customer data in a shared Google Sheet?
-```
-  ![image](./imgs/lab1/sda_simple_step1.png)
+### Conversation with Agent 
 
-**Message 2:**
-```
-Is two-factor authentication required for VPN access?
-```
-
-  ![image](./imgs/lab1/sda_simple_step2.png)
-
-**Message 3:**
-```
-Who do I contact for vendor approval?
-```
-
-  ![image](./imgs/lab1/sda_simple_step3.png)
-
----
-
-### Conversation 2: Complex Policy Questions
-
-**Message 1:**
-```
-Walk me through the complete process for getting a new vendor approved for data access. Include all required approvals and timeline.
-```
-
-  ![image](./imgs/lab1/sda_complex_step1.png)
-
-**Message 2:**
-```
-What's the difference between approval requirements for US vendors versus EU vendors? Be specific about what additional steps are needed for EU.
-```
-
-  ![image](./imgs/lab1/sda_complex_step2.png)
-
-**Message 3:**
-```
-If I accidentally expose customer PII, what exactly should I do? Give me the step-by-step incident response process.
-```
-  ![image](./imgs/lab1/sda_complex_step3.png)
-
----
-
-### Conversation 3: Tool Usage and Tickets
+YOUR AGENT NAME 
 
 **Message 1:**
 
 ```
-I received a suspicious email asking for my password. I think it's phishing. Can you help me report this?
+The printer is not working 
+```
+```
+EMP7080
 ```
 
 ```
-abc123@gmail.com
+I cannot print anything
 ```
 
-  ![image](./imgs/lab1/sda_tool_step1.png)
+  ![image](./imgs/lab1/lab1-step11.png)
 
 **Message 2:**
-```
-I need access to the customer analytics database for Q1 reporting. Can you create a ticket for this access request?
-```
 
 ```
-abc123@gmail.com
+Can I store customer data in a shared google sheet?
 ```
 
-  ![image](./imgs/lab1/sda_tool_step2.png)
+  ![image](./imgs/lab1/lab1-step12.png)
 
 **Message 3:**
+
 ```
-My laptop was stolen from my car last night. It has customer data on it. What do I do?
+I forgot my password. My employee ID is EMP1234.
+```
+  ![image](./imgs/lab1/lab1-step13.png)
+
+**Message 4:**
+
+```
+I really need to install Photoshop, ugh I need it for client meeting. I am so frustrated 
+```
+```
+Can you submit a request? My employee ID is EMP1234
+```
+  ![image](./imgs/lab1/lab1-step14.png)
+
+**Message 5**
+
+```
+This is so annoying that I have to apply for accessing for vscode, why can I not access vscode
+```
+```
+EMP5678
+```
+  ![image](./imgs/lab1/lab1-step19.png)  
+
+**Message 6:**
+
+```
+VPN is not connecting. I keep getting timeout errors. My Employee ID is EMP5678
+```
+```
+slow connection
 ```
 
-  ![image](./imgs/lab1/sda_tool_step3.png)
+  ![image](./imgs/lab1/lab1-step16.png)
+
 
 ---
 
-## Part 3: Access Dashboard (5 minutes)
+## Part 3: Access Dashboard
 
 1. Click hamburger menu (☰)
 2. Select **Analyze**
 
-  ![image](./imgs/lab1/step_2a.png)
+  ![image](./imgs/lab1/lab1-step17.png)
 
-3. Find and Click on **Service_Desk_Assistant**
+3. Find and Click View Dashboard on **Your_Agent**
 
-  ![image](./imgs/lab1/step_3b.png)
-
-4. Click **View Dashboard**
-
-  ![image](./imgs/lab1/step_3c.png)
+  ![image](./imgs/lab1/lab1-step18.png)
 
 ---
 
-## Part 4: Evaluation Section (10 minutes)
+## Part 4: Evaluation Section
 
 
 ### 4.1 Overall Alerts and Basic Info
@@ -220,7 +222,7 @@ My laptop was stolen from my car last night. It has customer data on it. What do
 - Active alerts
 - Time range selector
 
-  ![image](./imgs/lab1/step_4a.png)
+  ![image](./imgs/lab1/lab1-step20.png)
 
 ### 4.2 Conversation Metrics
 
@@ -230,7 +232,7 @@ My laptop was stolen from my car last night. It has customer data on it. What do
 - Success rate
 - Response time trends
 
-  ![image](./imgs/lab1/conversation.png)
+  ![image](./imgs/lab1/lab1-step21.png)
 
 ### 4.3 Message Metrics
 
@@ -240,19 +242,53 @@ My laptop was stolen from my car last night. It has customer data on it. What do
 - Average tokens per message
 - Token cost breakdown
 
-  ![image](./imgs/lab1/step_4b.png)
+  ![image](./imgs/lab1/message1.png)
+
+#### Agent Content Safety Performance**
+
+  ![image](./imgs/lab1/message3.png)
+
+**Input HAP**: Escalates from 0.0 to 0.87, indicating users submitted queries containing hate, abuse, or profanity content
+
+**Output HAP**: Remains at 0.0 throughout, despite high Input HAP
+Agent Performance Assessment:
+
+- The agent successfully maintains safe outputs even when receiving problematic inputs. The agent does NOT respond with HAP content when users send HAP inputs. This demonstrates effective content filtering and safety controls. No PII leakage detected in either inputs or outputs
+
+#### Agent Retrieval and Answer Quality Performance**
+
+  ![image](./imgs/lab1/message.png)
+
+**Answer Relevance**: Scores 0.97 to 1.0 (near perfect). Agent responses directly address user questions
+
+**Context Relevance**: Scores 0.90 to 1.0 (improving over time).Knowledge base retrieval is highly effective
+
+**Faithfulness**: Scores 0.98 to 1.0 (consistently excellent).Agent responses are accurate and grounded in source material without hallucination
+
+- The knowledge base does not need to be changed as all metrics are above 0.90 at 95th percentile. The agent retrieves relevant information and provides accurate as shown by high retrieval quality, high answer quality and faithfulness, scores due to the effective knowledge base. 
+
+#### When to Take Action
+
+##### Modify Knowledge Base If:
+
+- Answer relevance drops below 0.8
+- Context relevance shows inconsistent scores
+- Users frequently ask follow-up questions
+
+##### Review Agent Instructions If:
+
+- Output HAP score increases above 0
+- Responses become too verbose or too brief
+- Tool usage patterns seem inefficient
 
 
 ### 4.4 Tool Metrics
 
-  ![image](./imgs/lab1/step_4c.png)
-
-
-**Note:** For detailed tool analysis, use **Analysis → Tools** tab (covered in Part 5.3).
+  ![image](./imgs/lab1/lab1-step23.png)
 
 ---
 
-## Part 5: Analysis Section (15 minutes)
+## Part 5: Analysis Section
 
 
 ### 5.1 Conversation-Level Dashboard
@@ -260,139 +296,15 @@ My laptop was stolen from my car last night. It has customer data on it. What do
 1. Navigate to **Analysis** section
 2. Click **Conversations** tab
 
+  ![image](./imgs/lab1/lab1-step24.png)
 
-  ![image](./imgs/lab1/step_5a.png)
+3. Navigate tabs to view the **Message** to influence what graphs you want to analyze 
 
-3. Sort by Cost (descending)
-4. Click on most expensive conversation
-
-### 5.2 Message-Level Dashboard
-
-1. Click **Messages** tab
-
-
-  ![image](./imgs/lab1/step_5b.png)
-
-2. Sort by output tokens (descending)
-3. Click on highest token message
-
-### 5.3 Tool-Level Dashboard
-
-1. Click **Tools** tab
-
-
-  ![image](./imgs/lab1/step_5c.png)
+  ![image](./imgs/lab1/lab1-step25.png)
 
 ---
 
-## Part 6: Key Insights - Message Metrics Analysis (15 minutes)
-
-### 6.1 Understanding Answer Quality Metrics
-
-The AgentOps dashboard provides comprehensive metrics to evaluate your agent's performance. Let's analyze the key metrics:
-
-#### Agent Retrieval and Answer Quality
-
-  ![image](./imgs/lab1/metrics1.png)
-
-**Key Metrics Explained:**
-
-1. **Answer Relevance (Score: 1.0)** - Perfect score indicating the agent's responses directly address user questions
-2. **Context Relevance (Score: 1.0)** - Perfect score showing the knowledge base retrieves highly relevant information
-3. **Faithfulness (Score: 1.0)** - Perfect score confirming responses are grounded in the knowledge base content
-
-  ![image](./imgs/lab1/metrics2.png)
-
-**What This Tells Us:**
-
-With all metrics scoring **1.0 (perfect score)**, we can conclude:
-- **No need to modify the knowledge base** - The current content is comprehensive and well-structured
-- **Retrieval is working optimally** - The agent finds the right information every time
-- **Responses are accurate** - The agent provides contextually relevant answers
-
-#### Distribution Analysis
-
-  ![image](./imgs/lab1/metrics10.png)
-
-The distribution chart shows that the majority of messages achieve high answer relevance scores (0.80-1.00 range), with most clustering at the perfect 1.0 score.
-
-  ![image](./imgs/lab1/metrics11.png)
-
-Similarly, context relevance shows all messages achieving a perfect 1.0 score, indicating the knowledge base consistently provides relevant context.
-
-
-### 6.2 Agent Content Safety for Messages
-
-Despite the user's frustration, the agent responded professionally and helpfully, explaining the policy without mirroring the user's tone.
-
-  ![image](./imgs/lab1/metrics5.png)
-
-- **Input HAP: 0.9964** - High score indicating strong negative sentiment
-- **Output HAP: 0** - Agent maintained professionalism
-- **Prompt Safety Risk: 0.5632** - Elevated risk level
-
-**What the Graph Shows:**
-
-  ![image](./imgs/lab1/metrics7.png)
-
-- **Input HAP** (Blue line) - Shows spikes when users use inappropriate language (around 4:00 PM)
-- **Output HAP** (Dark green line) - Remains at 0 throughout, showing consistent professional responses
-- **Input PII** (Brown line) - Consistently high (0.8), indicating users frequently mention sensitive data
-- **Output PII** (Dark brown line) - Remains high (0.8), as the agent discusses data protection policies
-- **Prompt Safety Risk** (Purple line) - Varies based on input content but stays below critical threshold
-
-**Important Insight:** The high PII scores in both input and output are expected in this use case, as:
-- Users ask about handling customer data (Input PII)
-- The agent discusses data protection policies and examples (Output PII)
-- This is legitimate business context, not a security concern
-
-### 6.3 Detailed Message Analysis
-
-  ![image](./imgs/lab1/metrics8.png)
-
-For each message, you can drill down to see:
-- **Answer Relevance Score** - How well the response addresses the question
-- **Input HAP Score** - Inappropriate content detection in user input
-- **Output HAP Score** - Ensures agent responses are appropriate
-- **Prompt Safety Risk** - Overall risk assessment
-- **Token Counts** - Resource usage metrics
-
-### 6.4 Key Takeaways for Agent Optimization
-
-Based on the metrics analysis:
-
-#### What's Working Well
-
-1. **Knowledge Base Quality**
-   - Perfect answer relevance (1.0) means no changes needed
-   - Perfect context relevance (1.0) shows optimal retrieval
-   - Content is comprehensive and well-structured
-
-2. **Content Safety**
-   - Agent maintains professionalism despite user frustration
-   - HAP monitoring successfully detects inappropriate input
-   - Output remains appropriate in all cases
-
-3. **Response Quality**
-   - Agent provides empathetic, helpful responses
-   - Addresses user concerns while maintaining policy compliance
-   - Explains "why" behind policies, not just "what"
-
-
-#### When to Take Action
-
-**Modify Knowledge Base If:**
-- Answer relevance drops below 0.8
-- Context relevance shows inconsistent scores
-- Users frequently ask follow-up questions
-
-**Review Agent Instructions If:**
-- Output HAP score increases above 0
-- Responses become too verbose or too brief
-- Tool usage patterns seem inefficient
-
-**In This Case:** With perfect scores across all quality metrics, the current configuration is optimal. No changes needed!
-
+## Part 6: Key Insights - Message Metrics Analysis
 
 ## Troubleshooting
 
