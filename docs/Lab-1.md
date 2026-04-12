@@ -13,7 +13,7 @@ nav_order: 1
 uv init 
 uv add ibm-watsonx-orchestarte 
 
-OR 
+#OR 
 
 pip install ibm-watsonx-orchestrate 
 

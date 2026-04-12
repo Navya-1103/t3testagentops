@@ -238,7 +238,7 @@ orchestrate agents list  # Verify agent name
 #USE THIS COMMAND:
 pip install --upgrade "ibm-watsonx-orchestrate[agentops]"
 
-OR 
+#OR 
 
 uv pip install --upgrade "ibm-watsonx-orchestrate[agentops]"
 ```
