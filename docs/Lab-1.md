@@ -42,7 +42,7 @@ orchestrate env activate <environment name>
 
 ### Step 1.2: Import the tools, knowledge bases and agents 
 
-#### Tools 
+### Tools 
 
 ```bash
 orchestrate tools import -k python -f `[The_path_to_your_tools_file]`
@@ -55,7 +55,7 @@ Expected result:
 **Important:** Ensure all you import the four python tools: escalate_ticket.py, request_software.py, diagnose_vpn.py, reset_password.py. 
 
 
-#### Knowledge Base
+### Knowledge Base
 
 ```bash
 orchestrate knowledge-bases import -f `[The_path_to_your_knowledge_bases_file]`
@@ -66,7 +66,8 @@ Expected result:
 [INFO] - Tool `[Your_knowledge-bases_name]` imported successfully
 ```
 
-#### Agent
+### Agent
+
 
 **Important:** Before you import the agent, ensure you change the name of the agent to `[Your_initials]_it_helpdesk_agent`
 
