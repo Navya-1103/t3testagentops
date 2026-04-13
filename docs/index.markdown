@@ -51,13 +51,12 @@ Complete hands-on lab package for learning agent monitoring and evaluation using
 **Purpose:** Help users with IT support, and policy related questions 
 
 **Tools:**
-- `diagnose_vpn` - Diagnose VPN connection issues and provide troubleshooting steps.
 - `escalate_ticket` - Create an escalation ticket for issues 
 - `request_software` - Request software installations for approved software 
 - `reset_password` - Reset the password for an employee and returns temporary password
 
 **Knowledge Base:**
-- `it_policy` - Company IT policies and guidelines for employees
+- `combined_kb` - Company IT policies and guidelines for employees
 
 ---
 
