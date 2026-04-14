@@ -265,6 +265,38 @@ orchestrate evaluations evaluate --config ./saas_evaluation_config/saas_evaluati
 After running the command below, you should see something like this. 
 ![csv_generated_test_result](./imgs/additional_changes/csv_generated_test_result.png)
 
+**Understanding the testcase results**
+For each test case results exists:
+Test case has metrics, messages and message analysis.
+Metrics refer to how the test case performs such as Tool call Precision, Recall and F1, along with Journey Success Percentage.
+Messages refers to the user and agent communication history. You can look into this to look for error occuring within the test cases.
+Message Analysis is an addition of metadata of the agent run, consist of "expected trajectory", "expected_tool_calls", "actual_tool_calls", "missed tool calls" and "text_match_candidates".
+
+```json
+{
+  "meta": {
+      "expected_trajectory": {
+          "check_software_approval-1": [
+              "request_software-1"
+          ],
+          "request_software-1": [
+              "summarize"
+          ]
+      },
+      "expected_tool_calls": [
+          "company_combined_kb",
+          "request_software"
+      ],
+      "actual_tool_calls": [
+          "request_software",
+          "company_combined_kb"
+      ],
+      "missed_tool_calls": [],
+      "text_match_candidates": {}
+  }
+}
+```
+
 ---
 
 ## Key Insights
@@ -333,7 +365,6 @@ uv pip install --upgrade "ibm-watsonx-orchestrate[agentops]"
 ---
 For Lab-2, if you have any queries, drop me an email darren.chew@ibm.com. :-D
 Thank you! This is the END of AgentOps Lab. 
-
 ---
 
 
