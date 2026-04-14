@@ -137,7 +137,7 @@ quick-eval asks: “Are the tool calls valid?” (schema compliance, no hallucin
 
 
 ### CSV Evaluation:
-CSV Evaluation offers inclusion of tools for generating test cases, generally leaning towards producing production-grade test data. These generated test cases checks if the agent did call the right tool with the right parameters. Hence, the 2 key ingredients for generating the test cases would be User Stories and Tools. However, do take not that the agent has no role in generating these test cases! 
+CSV Evaluation offers inclusion of tools for generating test cases, generally leaning towards producing production-grade test case data. These generated test cases checks if the agent did call the right tool with the right parameters. Hence, the 2 key ingredients for generating the test cases would be User Stories and Tools. However, do take not that the agent has no role in generating these test cases! 
 **How do we generate these test cases?**
 User stories helps us to paint the picture in how the test case should emulate.
 For our first ingredient, user_stories.csv is used to emulate the test cases. Within this CSV contains 2 column, consisting of story and agent. 
@@ -177,7 +177,6 @@ def company_combined_kb(query: str) -> str:
     Query must include "Return True or False only." at the end.
     Args:
         query: Query to company_combined_kb knowledge base. 
-
     Returns:
         True or False Only
     """
@@ -192,7 +191,7 @@ Now to the magical part, generating the test cases. Do run the code below and le
 ```bash
 orchestrate evaluations generate \  
 --stories-path ./evaluation/user_stories.csv \                        
---tools-path ./python_tools/ \
+--tools-path ./tools/ \
 --output-dir ./evaluation/output
 ```
 Now check **./evaluation/output** folder; new test cases are generated there.
@@ -242,10 +241,10 @@ Before we perform evaluation, lets set up an evaluation configuration file under
 
 ```yaml
 test_paths:
-  -  {Your_test_path}
+  - {Your_test_path}
 auth_config:
-  url: https://api.us-south.watson-orchestrate.cloud.ibm.com/instances/d00d0b16-9946-4705-adf2-2a2c18ffa225
-  tenant_name: t3k
+  url: {your orchsreate service url name}
+  tenant_name: {your orchestrate env name}
 output_dir: "test_case_result"
 enable_verbose_logging: true
 enable_fuzzy_matching: true  
@@ -253,7 +252,7 @@ is_strict: false
 llm_user_config:
   user_response_style:
   - "Be really concise in messages and confirmations."
-n_runs: 1  # evaluations will run 2 times
+n_runs: 2  # evaluations will run 2 times
 ```
 
 
@@ -265,7 +264,6 @@ orchestrate evaluations evaluate --config ./saas_evaluation_config/saas_evaluati
 
 After running the command below, you should see something like this. 
 ![csv_generated_test_result](./imgs/additional_changes/csv_generated_test_result.png)
-
 
 ---
 
@@ -333,7 +331,7 @@ uv pip install --upgrade "ibm-watsonx-orchestrate[agentops]"
 - Test agent manually first
 
 ---
-
+For Lab-2, if you have any queries, drop me an email darren.chew@ibm.com. :-D
 Thank you! This is the END of AgentOps Lab. 
 
 ---
