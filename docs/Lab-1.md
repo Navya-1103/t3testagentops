@@ -27,7 +27,6 @@ pip install ibm-watsonx-orchestrate
 source .venv/bin/activate
 pip install --upgrade "ibm-watsonx-orchestrate[agentops]"
 
-
 # Verify installation
 orchestrate --version
 
@@ -36,6 +35,8 @@ orchestrate env add -n <environment-name> -u <service-instance-url>
 
 # Activate environment with your credentials
 orchestrate env activate <environment name>
+
+## When prompted ENTER YOUR API KEY
 
 ```
 

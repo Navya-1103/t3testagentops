@@ -56,7 +56,7 @@ Complete hands-on lab package for learning agent monitoring and evaluation using
 - `reset_password` - Reset the password for an employee and returns temporary password
 
 **Knowledge Base:**
-- `combined_kb` - Company IT policies and guidelines for employees
+- `company_combined_kb` - Company IT policies and guidelines for employees
 
 ---
 
