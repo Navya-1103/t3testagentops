@@ -8,36 +8,31 @@ nav_order: 1
 
 ### Step 1.1: Activate Environment
 
+**Skip this if you have UV installed""
+
+
 ```bash
 # Install Watson Orchestrate CLI (if not already installed)
-uv init 
-uv add ibm-watsonx-orchestarte 
 
-#OR 
+# OPTION A (Using uv command)
+
+uv init 
+uv add ibm-watsonx-orchestrate 
+source .venv/bin/activate
+uv pip install --upgrade "ibm-watsonx-orchestrate[agentops]"
+
+# OPTION B (Using pip command)
 
 pip install ibm-watsonx-orchestrate 
-
-# Create a virtual environment in the project root
-python3.12 -m venv .venv
-
-# Activate it
-source .venv/bin/activate    # macOS/Linux
-
-# Install ADK CLI + evaluation support
+source .venv/bin/activate
 pip install --upgrade "ibm-watsonx-orchestrate[agentops]"
 
-#OR 
-
-uv pip install --upgrade "ibm-watsonx-orchestrate[agentops]"
 
 # Verify installation
 orchestrate --version
 
 # Create environment
 orchestrate env add -n <environment-name> -u <service-instance-url>
-
-# When prompted, enter:
-# - API Key: [Your API key]
 
 # Activate environment with your credentials
 orchestrate env activate <environment name>
@@ -56,7 +51,7 @@ Expected result:
 ```
 [INFO] - Tool `[Your_tool_name]` imported successfully
 ```
-**Important:** Ensure all you import the four python tools: escalate_ticket.py, request_software.py, diagnose_vpn.py, reset_password.py. 
+**Important:** Ensure all you import the three python tools: escalate_ticket.py, request_software.py, reset_password.py. 
 
 
 ### Knowledge Base
@@ -85,7 +80,7 @@ orchestrate agents import -f `[The_path_to_your_agents_file]`
 
 Expected result:
 ```
-[INFO] - Tool `[Your_knowledge-bases_name]` imported successfully
+[INFO] - Tool `[Your_Agent_name]` imported successfully
 ```
 
 ### Step 1.3 Deploy your agent 
@@ -226,6 +221,8 @@ Can you submit a request? My employee ID is EMP1234
 
 
 ### 4.1 Overall Alerts and Basic Info
+
+**Important** : Ensure you change the view to the Last 1 hour.
 
 - Total conversations
 - Total messages
